@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PokerHands
 {
-    public class Class1
-    {
-    }
+	public class Player
+	{
+		public void GiveCards(string cards)
+		{
+		}
+	}
 }
