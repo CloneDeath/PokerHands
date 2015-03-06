@@ -5,12 +5,21 @@ using System.Text;
 
 namespace PokerHands
 {
-	public class Game{
+	public class Game
+	{
 		public Player Player1 = new Player();
 		public Player Player2 = new Player();
 
-		public object GetWinner(){
-			return Player2;
+		public object GetWinner()
+		{
+			if (Player1.HasABetterHandThan(Player2))
+			{
+				return Player1;
+			}
+			else
+			{
+				return Player2;
+			}
 		}
 	}
 }

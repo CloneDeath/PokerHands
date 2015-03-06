@@ -9,7 +9,7 @@ namespace PokerHands.Tests{
 		public void TestHighestCard(string hand, string bestcard){
 			Player player = new Player();
 			player.GiveCards(hand);
-			player.HighCard.Should().Be(bestcard);
+			player.Hand.HighCard.ToString().Should().Be(bestcard);
 		}
 	}
 }
