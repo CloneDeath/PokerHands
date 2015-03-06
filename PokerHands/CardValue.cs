@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PokerHands
 {
-	public class CardValue{
+	public class CardValue : IComparable{
 		public string Value { get; set; }
 		private const string CardValuesAscending = "23456789TJQKA";
 
@@ -39,6 +39,13 @@ namespace PokerHands
 
 		public override string ToString(){
 			return Value;
+		}
+
+		public int CompareTo(object obj){
+			CardValue other = obj as CardValue;
+			if (this < other) return -1;
+			if (this > other) return 1;
+			return 0;
 		}
 	}
 }

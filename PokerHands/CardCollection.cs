@@ -9,7 +9,17 @@ namespace PokerHands{
 	public class CardCollection{
 		private List<Card> _cards = new List<Card>();
 
-		public CardCollection(){}
+		public List<Card> Cards{
+			get{
+				return _cards;
+			}
+		}
+
+		public CardCollection(params Card[] cards){
+			foreach (var card in cards){
+				AddCard(card);
+			}
+		}
 
 		internal void AddCard(Card card){
 			_cards.Add(card);
@@ -17,14 +27,7 @@ namespace PokerHands{
 
 		public Card HighCard{
 			get{
-				Card bestCard = null;
-				foreach (var card in _cards){
-					if (bestCard == null || card.Value > bestCard.Value){
-						bestCard = card;
-					}
-				}
-
-				return bestCard;
+				return _cards.OrderByDescending(c => c.Value).First();
 			}
 		}
 

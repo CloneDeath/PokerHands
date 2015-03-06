@@ -1,4 +1,6 @@
-﻿using System.Runtime.Remoting.Messaging;
+﻿using PokerHands.CollectionComparers;
+using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 
 namespace PokerHands{
 	public class Player{
@@ -16,37 +18,23 @@ namespace PokerHands{
 		}
 
 		internal bool HasABetterHandThan(Player other){
-			if (EitherPlayerHasTwoPairs(this, other)){
-				return PlayerWithBetterTwoPairs(this, other) == this;
+			List<ICompareHands> CardComparersInMostImportantFirst = new List<ICompareHands>(){
+				new StraightComparer(),
+				new ThreeOfAKindComparer(),
+				new TwoPairComparer(),
+				new OnePairComparer(),
+				new HighCardComparer(),
+			};
+
+			foreach (var comparer in CardComparersInMostImportantFirst){
+				Player playerWithBetterHand = comparer.GetPlayerWithBetterHand(this, other);
+				if (playerWithBetterHand != null)
+				{
+					return playerWithBetterHand == this;
+				}	
 			}
-			if (EitherPlayerHasPair(this, other)){
-				return GetPlayerWithBestPair(this, other) == this;
-			}
-			return GetPlayerWithLargestSingleCard(this, other) == this;
-		}
 
-		private static Player PlayerWithBetterTwoPairs(Player one, Player two){
-			if (two.Hand.BestTwoPair == null) return one;
-			if (one.Hand.BestTwoPair == null) return two;
-			return (one.Hand.BestTwoPair.HighCard.Value > two.Hand.BestTwoPair.HighCard.Value) ? one : two;
-		}
-
-		private static bool EitherPlayerHasTwoPairs(Player one, Player two){
-			return (one.Hand.BestTwoPair != null || two.Hand.BestTwoPair != null);
-		}
-
-		private static Player GetPlayerWithLargestSingleCard(Player one, Player two){
-			return (one.Hand.HighCard.Value > two.Hand.HighCard.Value) ? one : two;
-		}
-
-		private static Player GetPlayerWithBestPair(Player one, Player two){
-			if (one.Hand.BestPair == null && two.Hand.BestPair != null) return two;
-			if (one.Hand.BestPair != null && two.Hand.BestPair == null) return one;
-			return (one.Hand.BestPair.HighCard.Value > two.Hand.BestPair.HighCard.Value) ? one : two;
-		}
-
-		private static bool EitherPlayerHasPair(Player one, Player two){
-			return one.Hand.BestPair != null || two.Hand.BestPair != null;
+			return false;
 		}
 	}
 }

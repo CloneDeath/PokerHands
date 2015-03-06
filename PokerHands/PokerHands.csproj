@@ -42,6 +42,12 @@
     <Compile Include="Card.cs" />
     <Compile Include="CardCollection.cs" />
     <Compile Include="CardValue.cs" />
+    <Compile Include="CollectionComparers\OnePairComparer.cs" />
+    <Compile Include="CollectionComparers\HighCardComparer.cs" />
+    <Compile Include="CollectionComparers\ICompareHands.cs" />
+    <Compile Include="CollectionComparers\StraightComparer.cs" />
+    <Compile Include="CollectionComparers\ThreeOfAKindComparer.cs" />
+    <Compile Include="CollectionComparers\TwoPairComparer.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
